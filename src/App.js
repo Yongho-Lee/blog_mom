@@ -11,6 +11,7 @@ function App() {
   let [thumbsUp, setThumbsUps] = useState(postCount());
   let hiddenPost = ['마지막 숨','기다린 날','엄마 안녕'];
   let [modal, setModals] = useState(false);
+  let [newPost, setNewPosts] = useState('');
 
   let [postNumber, setPostNumber] = useState(0);
 
@@ -46,6 +47,20 @@ function App() {
     setPostNumber(postNum)
   }
 
+  function addNewPost(ph) {
+    var newArray = [...post];
+    newArray.push(ph);
+    setPosts(newArray);
+  }
+
+  function deletePost(n){
+    var newArray = [...post];
+    newArray.splice(n, 1);
+    console.log("newArray는" + newArray +"n은" + n);
+    setPosts(newArray);
+  }
+
+
   return (
     <div className="App">
       <div className="black-nav">
@@ -62,17 +77,24 @@ function App() {
               <p> { detail[i] }</p>
               <h4> { date[i] } </h4>
 
-              <span onClick={()=>{changeThumbsUp(i)}}>❤</span> { thumbsUp[i] }
+              <span onClick={(e)=>{ e.stopPropagation(); changeThumbsUp(i)}}>❤</span> { thumbsUp[i] }
+              <div>
+                <button onClick={()=>{ deletePost(i)} }> 삭제 버튼 </button>
+              </div>
               <hr/>
             </div>)
           })
         }
+
+        <input onChange={(e)=>{ setNewPosts(e.target.value)}}></input> <button onClick={()=>{ addNewPost(newPost); console.log(post) }}> 글추가 </button>
         
         {
           modal === true ? 
           <Modal post={post} postNumber={postNumber} changePostsName={changePostsName}></Modal>       
           : null
         }
+
+        
 
     </div>
   );
