@@ -72,21 +72,42 @@ function App() {
           post.map(function(a, i){
             return(
             <div className='list' key={i}>
-            <button onClick={()=>{changePostsName(i);}}></button>
-              <h3 onClick={()=>{sendingModal(i);}}> { a }</h3>
+            <button onClick={()=>{
+              changePostsName(i);
+              }}>                
+            </button>
+              <h3 onClick={()=>{
+                sendingModal(i);
+                }}> { a }
+              </h3>
               <p> { detail[i] }</p>
               <h4> { date[i] } </h4>
 
-              <span onClick={(e)=>{ e.stopPropagation(); changeThumbsUp(i)}}>❤</span> { thumbsUp[i] }
+              <span onClick={(e)=>{
+                 e.stopPropagation(); changeThumbsUp(i)
+                 }}>❤
+              </span> { thumbsUp[i] }
+
               <div>
-                <button onClick={()=>{ deletePost(i)} }> 삭제 버튼 </button>
+                <button onClick={()=>{
+                   deletePost(i)
+                   }}> 삭제 버튼
+                </button>
               </div>
               <hr/>
             </div>)
           })
         }
 
-        <input onChange={(e)=>{ setNewPosts(e.target.value)}}></input> <button onClick={()=>{ addNewPost(newPost); console.log(post) }}> 글추가 </button>
+        <input onChange={(e)=>{
+           setNewPosts(e.target.value)
+           }}>
+        </input>
+        <button onClick={()=>{
+           addNewPost(newPost);
+           console.log(post) 
+           }}> 글추가
+        </button>
         
         {
           modal === true ? 
